@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1484723675 source:/home/ravish/Documents/course_algorithm_toolbox/course1/asg2/fractional_knapsack/fractional_knapsack.cpp
+	<iostream>
+	<vector>
+	<algorithm>
+
