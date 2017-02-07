@@ -6,47 +6,58 @@ using std::vector;
 
 int optimal_weight(int W, const vector<int> &w) {
   //write your code here
-    /*int current_weight = 0;
-    for (size_t i = 0; i < w.size(); ++i) {
-     if (current_weight + w[i] <= W) {
-       current_weight += w[i];
-     }
-    }*/
-    vector<int> opt_weight(W+1);
+
+    int length=w.size()+1;
+    // Creating a length(w) X W matrix.
+    //The idea is to create an optimised solution for each element of a matrix
+    // where each row are the different weight options starting from 0 to length(w)
+    //each column is the maximum weight of the knapsack from 0 to W
+
+    vector<vector<int>> opt_weight(length, vector <int>(W+1));
 
     //std::sort(w.begin(), w.end());
 
-    int i;
-    opt_weight[0]=0;
+    for (int m=0;m<=w.size();m++) {
+    opt_weight[m][0]=0;
+    }
 
-    for (i=1; i<W;i++)
+     for (int m=0;m<=W;m++) {
+    opt_weight[0][m]=0;
+    }
+
+    int i;
+    int j;
+    int val;
+
+     for ( j=1; j<=w.size(); j++)
     {
 
-        opt_weight[i]=opt_weight[i-1];
-
-        for (int j=0; j<w.size(); j++)
+        for (i=1; i<=W;i++)
         {
 
-            for (int k=0; k<i; k++)
-            {
+          opt_weight[j][i]=opt_weight[j-1][i]; //Default weight of current element calculated from previous row
 
-                if (w[j]<=[i] && opt_weight[i]<=opt_weight[k]+w[j])
-                {
-                    opt_weight[i]=opt_weight[k]+w[j];
+          if (w[j-1]<=i) //Current weight less than total capacity
 
-                }
+          {
+            val=opt_weight [j-1][i-w[j-1]]+w[j-1]; //val is opt_weight(previous row index,current_weight-weight of the current row).
+            //  row j is actually based on w[j-1] due to zero indexing. row 0 is all 0. However w[0] is the first index of specified weight array.
 
-
-
+            if (val>opt_weight[j][i]){
+            opt_weight[j][i]=val; //Replace the current opt_weight if val> previous opt_weight
             }
 
+          }
 
         }
 
 
     }
 
-    return opt_weight[i];
+
+    return opt_weight[w.size()][W]; //The final element of the matrix is optimum value
+
+
 }
 
 
