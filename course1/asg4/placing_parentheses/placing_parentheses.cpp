@@ -22,6 +22,13 @@ long long eval(long long a, long long b, char op) {
 
 long long get_maximum_value(const string &exp) {
   //write your code here
+  vector<int> num((exp.size()/2)+1);
+
+  for (int i=0;i<num.size();i++) {
+  num[i]=std::stoi(exp[2*i]);
+
+  }
+
   return 0;
 }
 
