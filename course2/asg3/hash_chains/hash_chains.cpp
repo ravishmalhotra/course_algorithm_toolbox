@@ -15,8 +15,9 @@ struct Query {
 class QueryProcessor {
     int bucket_count;
     // store all strings in one vector
-    vector<vector<string>> table;
-
+    vector<vector<string>> table; //The main change is to add a 2-d table.The table has <bucket_count> rows.
+    //Based on the calculate hash value of an element, a particular row index is assigned. The element is then
+    //added at the end of the particular row.
 
 
     size_t hash_func(const string& s) const {
@@ -50,12 +51,12 @@ public:
     void processQuery(const Query& query) {
         if (query.type == "check") {
             // use reverse order, because we append strings to the end
-            for (int i = (table[static_cast<int>(query.ind)].size()) - 1; i >= 0; --i)
+            for (int i = (table[static_cast<int>(query.ind)].size()) - 1; i >= 0; --i) //Check goes through all the elements of the stated bucket row index
                 if (hash_func(table[query.ind][i]) == query.ind)
                     std::cout << table[query.ind][i] << " ";
             std::cout << "\n";
         } else {
-            int row_ind=hash_func(query.s);
+            int row_ind=hash_func(query.s); //First find row index using the hash function and then do the actions below
             vector<string>::iterator it = std::find(table[row_ind].begin(), table[row_ind].end(), query.s);
             if (query.type == "find")
                 writeSearchResult(it != table[row_ind].end());
