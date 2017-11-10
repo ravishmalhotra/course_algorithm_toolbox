@@ -26,8 +26,8 @@ int number_of_components(vector<vector<int> > &adj) {
   vector<int> explored(adj.size(),0);
   //Initialize a list of explored nodes set to zero
   // Starting from node 0, find its connected components
-  //Mark the explored neighbor vertices as 1.
-  //While the index of explored vertex is not explored.end
+  // Mark the explored neighbor vertices as 1.
+  //While the index of explored vertex != explored.end
   //Find the next set connected components
   //Increment the result of unconnected components by 1
 
@@ -36,7 +36,7 @@ int number_of_components(vector<vector<int> > &adj) {
   while ( explored.end() != find_zero) {
 
   connected_components (adj, explored, find_zero-explored.begin());
-  res=res+1;
+  res++;
   find_zero=std::find(explored.begin(), explored.end(), 0);
   }
 
